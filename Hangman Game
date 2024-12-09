@@ -1,0 +1,51 @@
+import random
+
+print("This is a hangman game created by the one and only me, Radian!")
+
+words = ["abruptly", "glowworm", "jiujitsu","stronghold"]
+
+random_word = random.choice(words)
+print(random_word)
+
+placeholder = ""
+correct_letters = []
+
+for letter in random_word:
+    placeholder += "_"
+
+game_over = True
+lives = 6
+
+while game_over == True:
+    display = ""
+    print(placeholder)
+
+    guess = input("What is your guess").lower()
+
+    for letter in random_word:
+        if guess == letter:
+            display += guess
+            correct_letters.append(letter)
+
+        elif letter in correct_letters:
+            display += letter
+
+        else:
+            display += "_"
+    
+    if guess not in random_word:
+        lives -= 1
+        print(f"The letter {guess} is not in the word!")
+        print("You lost a life!\n")
+
+    
+    print(display)
+    print(f"You have {lives} lives left\n")
+
+    if lives == 0:
+        print("You have 0 lives left! Game over!")
+        game_over = False
+
+    if "_" not in display:
+        print(f"You are right! The word is {random_word}. You win!")
+        game_over = False
