@@ -1,0 +1,44 @@
+def add(n1, n2): #Additon
+    return n1 + n2
+
+def subtract(n1,n2): #Subcration
+    return n1 - n2
+
+def multiply(n1,n2): #Multiplication 
+    return n1 * n2
+
+def division(n1, n2): #Dvision
+    return n1 / n2
+
+#Dictionary that saves the functions into the operation symbols
+operations = {
+    "+": add,
+    "-":subtract,
+    "/":division,
+    "*":multiply
+
+
+
+}
+def calculator():
+    num1 = float(input("What is your first number:")) #First number
+    game_over = True
+    while game_over == True:
+
+
+        for symbol in operations:
+            print(symbol)
+        symbol_operator = input("What operation should should you use?:")
+        num2 = float(input("What is your second number:")) #Second number
+        answer = operations[symbol_operator](num1,num2)
+        print(f"{num1} {symbol_operator} {num2} = {answer}") #Prints out the whole equation
+
+        yes_no = input(f"Calculate with {answer} ? (y) or start over (n):")
+
+        if yes_no == "y":
+            num1 = answer 
+        else:
+            print("\n" * 30)
+            calculator()
+
+calculator()
