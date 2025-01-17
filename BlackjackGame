@@ -1,0 +1,77 @@
+import random
+
+
+player_cards = []
+computer_cards = []
+
+"""Deals cards"""
+def deal_card():
+    cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
+    random_card = random.choice(cards)
+    return random_card
+
+"Finds blackjack, ace, and score"
+def calculate_score(deck):
+    #BlackJack
+    if 11 in deck and 10 in deck and len(deck) == 2:
+        return 0
+    #Ace
+    if 11 in deck and sum(deck) > 21:
+        deck.remove(11)
+        deck.append(1)
+    
+    return sum(deck)
+
+def compare(user_score,computer_score):
+    if user_score == computer_score:
+        return "It's a draw"
+    elif computer_score == 0:
+        return "Lose, computer has blackjack"
+    elif user_score == 0:
+        return "You win, you have a blackjack"
+    elif user_score > 21:
+        return "You lose, you went over 21"
+    elif computer_score > 21:
+        return "You win, computer went over 21"
+    elif user_score > computer_score:
+        return "You win"
+    else:
+        return "You lose"
+        
+    
+    
+for card in range(2):
+    player_cards.append(deal_card())
+    computer_cards.append(deal_card())
+
+
+game_over = False
+
+while not game_over:
+    player_score = calculate_score(player_cards)
+    computer_score = calculate_score(computer_cards)
+
+    print(f"Your cards are {player_cards}, total score is {player_score}")
+    print(f"Computer's first card is {computer_cards[0]}")
+    
+
+    if player_score == 0 or player_score > 21:
+        game_over = True
+    
+    else:
+        player_should_deal = input("Deal another card (y) or pass (n)")
+
+        if player_should_deal == "y":
+            player_cards.append(deal_card())
+        else:
+            game_over = True
+
+
+"""Computer AI"""
+while sum(computer_cards) != 0 and sum(computer_cards) < 17:
+    computer_cards.append(deal_card())
+    computer_score = calculate_score(computer_cards)
+
+print(f"Your final hand is {player_cards}, final score: {player_score}")
+print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
+print(compare(player_score,computer_score))
